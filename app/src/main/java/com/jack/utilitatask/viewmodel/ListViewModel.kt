@@ -44,6 +44,7 @@ class ListViewModel: ViewModel() {
                     val jsonObject = text.asJsonObject
                     val first = jsonObject.get("APIs & DBs").asJsonObject
                     val second = jsonObject.get("Sites").asJsonObject
+
                     first.keySet().forEach {
                         val status = Klaxon().parse<UtilitaStatus>(first.get(it).toString())
                         if (status != null) {

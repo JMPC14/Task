@@ -23,7 +23,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 class ListFragment: Fragment() {
 
     private val binding by viewBinding(ListFragmentBinding::bind)
-
     private lateinit var api: UtilitaApi
     private lateinit var listViewModel: ListViewModel
     private val adapter = GroupAdapter<GroupieViewHolder>()
@@ -47,23 +46,26 @@ class ListFragment: Fragment() {
         api = retrofit.create(UtilitaApi::class.java)
 
         listViewModel.getPosts()
-        adapter.clear()
 
         with (binding) {
             recyclerViewList.adapter = adapter
             recyclerViewList.layoutManager = LinearLayoutManager(view.context)
 
-            listViewModel.dbs.observe(viewLifecycleOwner, {
-                it.forEach { (t, u) ->
-                    adapter.add(ListItem(t, u))
-                }
-            })
+            if (adapter.itemCount == 0) {
+                listViewModel.dbs.observe(viewLifecycleOwner, {
+                    it.forEach { (t, u) ->
+                        adapter.add(ListItem(t, u))
+                    }
+                })
 
-            listViewModel.sites.observe(viewLifecycleOwner, {
-                it.forEach { (t, u) ->
-                    adapter.add(ListItem(t, u))
-                }
-            })
+                listViewModel.sites.observe(viewLifecycleOwner, {
+                    it.forEach { (t, u) ->
+                        adapter.add(ListItem(t, u))
+                    }
+                })
+
+                adapter.clear()
+            }
         }
     }
 
