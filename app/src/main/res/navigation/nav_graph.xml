@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/nav_graph"
+    app:startDestination="@id/listFragment">
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.jack.utilitatask.ui.ListFragment"
+        android:label="ListFragment" >
+        <action
+            android:id="@+id/action_listFragment_to_serviceFragment"
+            app:destination="@id/serviceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/serviceFragment"
+        android:name="com.jack.utilitatask.ui.StatusFragment"
+        android:label="ServiceFragment" >
+        <action
+            android:id="@+id/action_serviceFragment_to_listFragment"
+            app:destination="@id/listFragment" />
+        <argument
+            android:name="statusName"
+            app:argType="string" />
+        <argument
+            android:name="status"
+            app:argType="com.jack.utilitatask.model.UtilitaStatus" />
+    </fragment>
+</navigation>
